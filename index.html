@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Profile</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Student Profile</h1>
+      <form id="studentForm" onsubmit="return getStudentDetails()">
+        <label for="regNumber">Registration Number:</label>
+        <input type="text" id="regNumber" name="regNumber" required />
+        <button type="submit">Get Details</button>
+      </form>
+      <div id="studentDetails" class="hidden">
+        <h2>Student Details</h2>
+        <p><strong>Name:</strong> <span id="studentName"></span></p>
+        <p><strong>Course:</strong> <span id="studentCourse"></span></p>
+        <p><strong>Branch:</strong> <span id="studentBranch"></span></p>
+        <p><strong>College:</strong> <span id="studentCollege"></span></p>
+        <p><strong>RegNumber:</strong> <span id="studentRegNumber"></span></p>
+      </div>
+    </div>
+    <script>
+      // Array of student objects
+      const students = [
+        {
+          name: "MOHAN KRISHNA",
+          course: "Software Engineering",
+          branch: "SWE",
+          college: "VIT-AP University",
+          regNumber: "21MIS7128",
+        },
+        {
+          name: "RAGHASRI PRANATI",
+          course: "Software Engineering",
+          branch: "SWE",
+          college: "VIT-AP University",
+          regNumber: "21MIS7161",
+        },
+        {
+          name: "SRAVANTHI",
+          course: "Computer Science",
+          branch: "CSE",
+          college: "VIT-AP University",
+          regNumber: "21MIC7184",
+        },
+      ];
+
+      function getStudentDetails() {
+        // Form validation
+        const regNumber = document.getElementById("regNumber").value;
+        if (!regNumber) {
+          alert("Please enter a registration number.");
+          return false;
+        }
+
+        // Find the student by registration number
+        const studentData = students.find((student) => student.regNumber === regNumber);
+
+        if (!studentData) {
+          alert("Student not found.");
+          return false;
+        }
+
+        // Display student details and hide others
+        const studentDetails = document.getElementById("studentDetails");
+        const studentName = document.getElementById("studentName");
+        const studentCourse = document.getElementById("studentCourse");
+        const studentBranch = document.getElementById("studentBranch");
+        const studentCollege = document.getElementById("studentCollege");
+        const studentRegNumber = document.getElementById("studentRegNumber");
+
+        studentName.textContent = studentData.name;
+        studentCourse.textContent = studentData.course;
+        studentBranch.textContent = studentData.branch;
+        studentCollege.textContent = studentData.college;
+        studentRegNumber.textContent = studentData.regNumber;
+
+        studentDetails.classList.remove("hidden");
+
+        return false; // Prevent form submission
+      }
+    </script>
+  </body>
+</html>
